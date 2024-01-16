@@ -11,7 +11,7 @@ using System.Data.Common;
 
 namespace HMS.DAO
 {
-    public class HospitalServiceDao : IHospitalService
+    public class HospitalServiceimpl : IHospitalService
     {
 
         SqlConnection conn;
@@ -25,6 +25,7 @@ namespace HMS.DAO
 
         public Appointment getAppointmentById(int appointment_id)
         {
+        try{
             Appointment appointment = null;
 
             using (SqlConnection connection = DBConnUtil.GetConnection())
@@ -56,6 +57,10 @@ namespace HMS.DAO
                     }
                 }  
             }
+            }
+            catch(Exception e)
+            {
+             Console.WriteLine(ex.Message);}
             return appointment;
 
         }
