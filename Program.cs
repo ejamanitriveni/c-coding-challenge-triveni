@@ -8,8 +8,9 @@ class Program
 {
     static void Main()
     {
+        try{
 
-        IHospitalService hospitalService = new HospitalServiceDao();
+        IHospitalService hospitalService = new HospitalServiceimpl();
 
         while (true)
         {
@@ -30,6 +31,7 @@ class Program
                 
 
                 case "1":
+                    try{
                     Console.Write("Enter appointment ID: ");
                     if (int.TryParse(Console.ReadLine(), out int appointment_id))
                     {
@@ -40,9 +42,12 @@ class Program
                     {
                         Console.WriteLine("Invalid input. Please enter a valid integer for appointment ID.");
                     }
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message);  }
                     break;
 
                 case "2":
+                    try{
                     Console.Write("Enter patient ID: ");
                     if (int.TryParse(Console.ReadLine(), out int appointmentsForPatientId))
                     {
@@ -53,9 +58,12 @@ class Program
                     {
                         Console.WriteLine("Invalid input. Please enter a valid integer for patient ID.");
                     }
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message);  }
                     break;
 
                 case "3":
+                    try{
                     Console.Write("Enter doctor ID: ");
                     if (int.TryParse(Console.ReadLine(), out int appointmentsForDoctorId))
                     {
@@ -66,15 +74,22 @@ class Program
                     {
                         Console.WriteLine("Invalid input. Please enter a valid integer for doctor ID.");
                     }
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message);  }
                     break;
 
                 case "4":
+                    try{
+                        
                     Appointment newAppointment = ReadAppointmentDetailsFromUser();
                     hospitalService.scheduleAppointment(newAppointment);
                     Console.WriteLine("Appointment scheduled successfully.");
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message);  }
                     break;
 
                 case "5":
+                    try{
                     Console.Write("Enter appointment ID to update: ");
                     if (int.TryParse(Console.ReadLine(), out int updateAppointmentId))
                     {
@@ -96,9 +111,12 @@ class Program
                     {
                         Console.WriteLine("Invalid input. Please enter a valid integer for appointment ID.");
                     }
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message);  }
                     break;
 
                 case "6":
+                 try  {
                     Console.Write("Enter appointment ID to delete: ");
                     int deleteAppointmentId = int.Parse(Console.ReadLine());
                     Console.WriteLine();
@@ -111,6 +129,8 @@ class Program
                     {
                         Console.WriteLine("Invalid input. Please enter a valid integer for Appointment ID.");
                     }
+                 }
+                    catch (Exception ex) { Console.WriteLine(ex.Message);  }
                     break;
 
                 case "0":
@@ -125,12 +145,15 @@ class Program
             Console.WriteLine("\nPress Enter to continue...");
             Console.ReadLine();
             Console.Clear();
-        }
+        }}
+        catch (Exception ex) { Console.WriteLine(ex.Message);  }
     }
+        
 
 
     static void PrintAppointment(Appointment appointment)
     {
+        try{
         if (appointment != null)
         {
             Console.WriteLine($"Appointment ID: {appointment.appointment_id}");
@@ -143,11 +166,13 @@ class Program
         {
             Console.WriteLine("Appointment not found.");
         }
-    }
+    }}
+    catch (Exception ex) { Console.WriteLine(ex.Message);  }
 
 
     static Appointment ReadAppointmentDetailsFromUser()
     {
+        try{
         Appointment appointment = new Appointment();
 
         Console.Write("Enter Appointment ID: ");
@@ -194,5 +219,6 @@ class Program
         appointment.description = Console.ReadLine();
 
         return appointment;
-    }
+    }}
+    catch (Exception ex) { Console.WriteLine(ex.Message);  }
 }
