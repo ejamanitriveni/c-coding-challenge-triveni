@@ -57,16 +57,18 @@ namespace HMS.DAO
                     }
                 }  
             }
+            return appointment;
             }
             catch(Exception e)
             {
              Console.WriteLine(ex.Message);}
-            return appointment;
+            
 
         }
 
         public Appointment getAppointmentsForPatient(int patient_id)
         {
+            try{
             Appointment appointment = null;
 
             using (SqlConnection connection = DBConnUtil.GetConnection())
@@ -93,18 +95,22 @@ namespace HMS.DAO
                         }
                         else
                         {
-                            Console.WriteLine($"Appointment With id {patient_id} not found.");
+                        throw new PatientNotFoundException("Invalid patient Id");
+                            
                         }
                     }
                 }
             }
             return appointment;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message);  }
 
 
         }
 
         public Appointment getAppointmentsForDoctor(int doctor_id)
         {
+        try{
             Appointment appointment = null;
 
             using (SqlConnection connection = DBConnUtil.GetConnection())
@@ -137,12 +143,15 @@ namespace HMS.DAO
                 }
             }
             return appointment;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message);  }
 
 
         }
 
         public void scheduleAppointment(Appointment appointment)
         {
+        try{
             using (SqlConnection connection = DBConnUtil.GetConnection())
             {
                 
@@ -157,10 +166,12 @@ namespace HMS.DAO
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+            catch (Exception ex) { Console.WriteLine(ex.Message);  }
         }
 
         public void updateAppointment(Appointment appointment)
         {
+        try{
             using (SqlConnection connection = DBConnUtil.GetConnection())
             {
                 SqlCommand command = new SqlCommand();
@@ -174,10 +185,12 @@ namespace HMS.DAO
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+            catch (Exception ex) { Console.WriteLine(ex.Message);  }
         }
 
         public string cancelAppointment(int appointment_id)
         {
+        try{
             string response = null;
             using (SqlConnection connection = DBConnUtil.GetConnection())
             {
@@ -200,6 +213,9 @@ namespace HMS.DAO
             return response;
         }
     }
+    }
+
+    catch (Exception ex) { Console.WriteLine(ex.Message);  }
 }
 
 
